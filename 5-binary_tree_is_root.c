@@ -12,7 +12,7 @@ int binary_tree_is_root(const binary_tree_t *node)
 	{
 		return (0);
 	}
-	if (node->parent)
+	if (node->parent == NULL)
 	{
 		return (1);
 	}
