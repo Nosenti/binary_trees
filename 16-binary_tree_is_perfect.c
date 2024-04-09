@@ -8,9 +8,9 @@
  */
 int binary_tree_is_perfect(const binary_tree_t *tree)
 {
-	size_t depth = binary_tree_depth(tree);
+	size_t height = binary_tree_height(tree);
 
-	return (_is_perfect(tree, depth, 0));
+	return (_is_perfect(tree, height, 0));
 }
 
 /**
@@ -33,23 +33,26 @@ int _is_perfect(const binary_tree_t *tree, size_t depth, size_t level)
 		return (0);
 
 	return (_is_perfect(tree->left, depth, level + 1) &&
-		   _is_perfect(tree->right, depth, level + 1));
+			_is_perfect(tree->right, depth, level + 1));
 }
 
 /**
- * binary_tree_depth - measure depth of a binary tree
- * @tree: the provided tree
+ * binary_tree_height - measure the height of a binary tree
+ * @tree: pointer to the root node of the tree to measure the height.
  *
- * Return: size_t depth of the tree
+ * Return: The height of the tree
  */
-
-size_t binary_tree_depth(const binary_tree_t *tree)
+size_t binary_tree_height(const binary_tree_t *tree)
 {
+	size_t left_height, right_height;
 
-	if (!tree || !tree->parent)
+	if (tree == NULL)
 	{
 		return (0);
 	}
 
-	return (binary_tree_depth(tree->parent) + 1);
+	left_height = tree->left ? 1 + binary_tree_height(tree->left) : 0;
+	right_height = tree->right ? 1 + binary_tree_height(tree->right) : 0;
+
+	return ((left_height > right_height) ? left_height : right_height);
 }
